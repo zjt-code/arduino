@@ -83,7 +83,7 @@ static void Scl_Set_Value(bool b_input)
 static void IIC_delay1us(uint16_t delay)
 {
 	uint32_t i;
-	i = delay << 3;  //  ?1us  ?8    ?delay * 8
+	i = delay << 6;  //  ?1us  ?8    ?delay * 8
 	for(;i>0;i--) ;
 }
 

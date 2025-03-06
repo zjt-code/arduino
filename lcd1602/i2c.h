@@ -17,8 +17,8 @@
 #define TWPS_PRESCALER_64   3
 
 
-#define		SCL				PIND0
-#define		SDA				PIND1
+#define		SCL				  PIND0
+#define		SDA				  PIND1
 #define		TWI_DDR			DDRD
 #define		TWI_PORT		PORTD
 #define		TWI_PIN			PIND
