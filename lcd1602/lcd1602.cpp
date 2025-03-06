@@ -61,9 +61,9 @@ Set  DDRAM  address
 static uint8_t slaveAddr = (0x20<<1);
 
 
-//  void lcd::IIC_delay1us(uint16_t delay)
+ void lcd::IIC_delay1us(uint16_t delay)
 
- void IIC_delay1us(uint16_t delay)
+//  void IIC_delay1us(uint16_t delay)
 {
 	uint32_t i;
 	i = delay << 3;  //  ?1us  ?8    ?delay * 8
@@ -71,8 +71,8 @@ static uint8_t slaveAddr = (0x20<<1);
 }
 
 
-// void lcd::delay(uint16_t delay)
-void delay(uint16_t delay)
+void lcd::delay(uint16_t delay)
+// void delay(uint16_t delay)
 {
     for(uint16_t x=0; x< delay; x++)
     {
@@ -81,8 +81,8 @@ void delay(uint16_t delay)
 }
 
 
-void begin()
-// void lcd::begin()
+// void begin()
+void lcd::begin()
 {
   Init_I2c();
   lcd_set_dl(0x30); // 8 bit interface mode
@@ -101,8 +101,8 @@ void begin()
 
 // set date length , 4bits length
 // this command execut in 8 bits data length
-// uint8_t lcd::lcd_set_dl(uint8_t dl_cmd)
-uint8_t lcd_set_dl(uint8_t dl_cmd)
+uint8_t lcd::lcd_set_dl(uint8_t dl_cmd)
+// uint8_t lcd_set_dl(uint8_t dl_cmd)
 {
 
   uint8_t ret =  ii2c_writechar_cmd(slaveAddr,dl_cmd |0x08);  //Set PIN E high
@@ -116,9 +116,9 @@ uint8_t lcd_set_dl(uint8_t dl_cmd)
 }
 
 
-uint8_t  lcdWriteCommand(uint8_t command)
+// uint8_t  lcdWriteCommand(uint8_t command)
 
-// uint8_t  lcd::lcdWriteCommand(uint8_t command)
+uint8_t  lcd::lcdWriteCommand(uint8_t command)
 {
 //0: rs,  1: w/r ,2: E pin   3: Backlight
  uint8_t high4Bytes = (command & 0xf0) | 0x08;  // 0x08 backlight control pin
@@ -152,8 +152,8 @@ uint8_t  lcdWriteCommand(uint8_t command)
 }
 
 
-// uint8_t lcd::lcdWriteData(uint8_t data)
-uint8_t lcdWriteData(uint8_t data)
+uint8_t lcd::lcdWriteData(uint8_t data)
+// uint8_t lcdWriteData(uint8_t data)
 {
 
  uint8_t high4Bytes = (data & 0xf0)|0x08|0x01;  // 0x08 backlight control pin,x01 Data register
@@ -179,8 +179,8 @@ uint8_t lcdWriteData(uint8_t data)
 }
 
 
-// uint8_t lcd::lcdReadStatus(void)
-uint8_t lcdReadStatus(void)
+uint8_t lcd::lcdReadStatus(void)
+// uint8_t lcdReadStatus(void)
 {
     // RS:0, W/R :1 ,Toggle E
     uint8_t buff;
@@ -228,47 +228,55 @@ uint8_t lcdReadStatus(void)
 // }
 
 
-// void lcd::lcd_clear(void)
-void lcd_clear(void)
+void lcd::lcd_clear(void)
+// void lcd_clear(void)
 {
   lcdWriteCommand(LCD_IR_CLEAR);
 }
 
 
-uint8_t lcdSetFunction(void)
+// uint8_t lcdSetFunction(void)
 
-// uint8_t lcd::lcdSetFunction(void)
+uint8_t lcd::lcdSetFunction(void)
 {
 
   return lcdWriteCommand(LCD_IR_SET_DL);
 }
 
 // 4 bit data length
-uint8_t lcdDisplayOn()
-// uint8_t lcd::lcdDisplayOn()
+// uint8_t lcdDisplayOn()
+uint8_t lcd::lcdDisplayOn()
 {
      return lcdWriteCommand(LCD_IR_DIS_ON);
 }
 
-uint8_t lcdSetDDramAddr(uint8_t addr)
-// uint8_t lcd::lcdSetDDramAddr(uint8_t addr)
+// uint8_t lcdSetDDramAddr(uint8_t addr)
+uint8_t lcd::lcdSetDDramAddr(uint8_t addr)
 {
      return lcdWriteCommand(addr);
 }
 
-uint8_t lcdReturnHome()
-// uint8_t lcd::lcdReturnHome()
+// uint8_t lcdReturnHome()
+uint8_t lcd::lcdReturnHome()
 {
   return lcdWriteCommand(LCD_IR_RET_HOME);
 }
 
 
-// void lcd::print(uint8_t row,uint8_t col,char *str="")
-void lcd_print(uint8_t row, uint8_t col, char*str)
+void lcd::print(uint8_t row,uint8_t col,char *str="")
+// void lcd_print(uint8_t row, uint8_t col, char*str)
 {
   uint8_t row_addr[] = {0x00,0x40};
   lcdSetDDramAddr((row_addr[row]+col)|0x80);
   while(*str){
     lcdWriteData(*str++);
   }
+}
+
+
+void lcd::print( char *str)
+{
+      while(*str){
+    lcdWriteData(*str++);
+    }
 }

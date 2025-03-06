@@ -2,37 +2,19 @@
 #include "i2c.h"
 #include "lcd1602.h"
 
-// lcd mylcd(0x20);
+lcd mylcd(0x20);
 
-void setup() {
+void setup() 
+{
 uint8_t ret;
   Serial.begin(9600); 
-  delay(1000);
-  // mylcd.begin();
-  // mylcd.print("hello world");
-    // // mylcd.print(1,0,"jingtao.zhang");
-
-  Init_I2c();
-  lcd_set_dl(0x30); // 8 bit interface mode
-  delay(20);
-  lcd_set_dl(0x30); // 8 bit interface mode
-  delay(20);
-  lcd_set_dl(0x30); // 8 bit interface mode
-  delay(20);
-  lcd_set_dl(0x20); //  set 4bit interface
-  lcdSetFunction();   //set functins 
-  lcd_clear();  
-  lcdDisplayOn();  
-  //lcdSetDDramAddr(0X80);
-
-  //lcd_print("hello world");
-  lcd_print(0,2,"hello world");
-
- // lcdSetDDramAddr(0Xc0);
-
-  lcd_print(1,3,"jingtao.zhang");
-
-  
+  delay(100);
+  mylcd.begin();
+  mylcd.print("hello world");
+  // mylcd.print(1,0,"jingtao.zhang"); 
+    String str = "ms:";
+  // str += millis();
+  mylcd.print(1,3,str.c_str());
 
   pinMode(7, INPUT);
   pinMode(5,INPUT);
@@ -42,90 +24,18 @@ static bool bInitFlag =false;
 void loop()
 {
    uint8_t ret;
-//   if(!bInitFlag)
-//   {     
-//             delay(100);
-//             ret= lcdSetDDramAddr(0XC0);
-//                     Serial.print("status=");
-// Serial.println(ret,HEX);
-//              delay(100);
-//             lcdWriteData('B');
-//             lcdWriteData('C');
-//             lcdWriteData('a');
-//             bInitFlag=true;
-//   }
-  // {
-  //     ret =lcd_set_dl();
-  //    Serial.print("set dl ret=");
-  //    Serial.println(ret,HEX);
-  //    lcdSetFunction();
-  //    lcd_clear();
-     
-  //   //  for(int x=0; x<20; x++)
-  //   //  {
-  //   //   delay(10);
-  //   //   uint8_t status =lcdReadStatus();
 
-  //   //  Serial.print("status=");
-  //   //  Serial.println(status,HEX);
-
-  //   //  if((status & 0x80)==0)break;
-
-  //   //  }    
- 
-
-  // lcdDisplayOn();
-  
-  // lcdSetDDramAddr();
-
-  // lcdWriteData('a');
-  //   //    for(int x=0; x<20; x++)
-  //   //  {
-  //   //   delay(10);
-  //   //   uint8_t status =lcdReadDateStatus();
-
-  //   //  Serial.print("status=");
-  //   //  Serial.println(status,HEX);
-
-  //   //  if((status & 0x80)==0)break;
-
-  //   //  }    
- 
-  //   lcdWriteData('a');
-  //   //      for(int x=0; x<20; x++)
-  //   //  {
-  //   //   delay(10);
-  //   //   uint8_t status =lcdReadDateStatus();
-
-  //   //  Serial.print("status=");
-  //   //  Serial.println(status,HEX);
-
-  //   //  if((status & 0x80)==0)break;
-
-  //   //  }    
- 
-  //     lcdWriteData('a');
-  //   //        for(int x=0; x<20; x++)
-  //   //  {
-  //   //   delay(10);
-  //   //   uint8_t status =lcdReadDateStatus();
-
-  //   //  Serial.print("status=");
-  //   //  Serial.println(status,HEX);
-
-  //   //  if((status & 0x80)==0)break;
-
-  //   //  }    
- 
-
-  //   bInitFlag =true;
-  //   Serial.println("lcd init completely!!!!");
-
-  // }
 
     delay(1000);
     Serial.println("lcd test");
     Serial.println('\0',HEX);
+
+      //lcd.setPosition(0, 1);
+  String str = "ms:";
+  str += millis();
+  mylcd.print(1,3,str.c_str());
+  delay(500);
+
 
 }
 
